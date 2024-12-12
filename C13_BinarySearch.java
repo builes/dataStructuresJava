@@ -1,6 +1,13 @@
 import java.util.ArrayList;
+import java.util.Arrays;
 
 public class C13_BinarySearch {
+
+    public static void main(String[] args) {
+        int[] nums = {1, 2, 2 ,4 , 8 ,9 , 10, 10 , 10, 12};
+        ArrayList<Integer> indexex = binarySearchWithReapeatedElements(nums, 2);
+        System.out.println(indexex);
+    }
 
 
     static int binarySearch(int[] arr, int target){
@@ -20,12 +27,12 @@ public class C13_BinarySearch {
                 return mid;
             }
 
-            //Si el valor objetivo es mayor que el de la mitad tomamos la mitad de la derecha
+            //Si el valor objetivo es menor que el de la mitad tomamos la mitad de la izquierda
             if(arr[mid] > target){
-                left = mid + 1;
+                right = mid - 1;
             }
             else {
-                right = mid - 1;
+                left = mid + 1;
             }
         }
 
@@ -33,7 +40,7 @@ public class C13_BinarySearch {
         return -1;
     }
 
-    static int[] binarySearchWithReapeatedElements(int[] arr, int target){
+    static ArrayList<Integer> binarySearchWithReapeatedElements(int[] arr, int target){
         ArrayList<Integer> indices = new ArrayList<>();
         // commienzo del arreglo
         int left = 0;
@@ -43,7 +50,7 @@ public class C13_BinarySearch {
 
         while (left <= right){
 
-            //forma de calcular el indice medio de un algoritmo de busqueda binaria y evitar deboramiento
+            //forma de calcular el indice medio de un algoritmo de busqueda binaria y evitar desbordamiento
             int mid = left + (right - left) / 2;
 
             //Verificamos si el punto medio es el target
@@ -53,22 +60,22 @@ public class C13_BinarySearch {
                 int index2 = mid -1;
 
                 while (arr[index1] == target ){
-                    indices.add(index1);
-                    index1++;
+                    indices.add(index1++);
                 }
 
                 while (arr[index2] == target ){
-                    indices.add(index2);
-                    index2--;
+                    indices.add(index2--);
                 }
+
+                return indices;
             }
 
-            //Si el valor objetivo es mayor que el de la mitad tomamos la mitad de la derecha
+            //Si el valor objetivo es menor que el de la mitad tomamos la mitad de la izquierda
             if(arr[mid] > target){
-                left = mid + 1;
+                right = mid - 1;
             }
             else {
-                right = mid - 1;
+                left = mid + 1;
             }
         }
 
